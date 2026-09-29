@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block title %}
+Teachers | SRMU Attendance
+{% endblock %}
+
+{% block page_heading %}
+Teachers
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-intro">
+
+    <div>
+
+        <span class="section-label">
+            FACULTY DIRECTORY
+        </span>
+
+        <h2>
+            Teacher Management
+        </h2>
+
+        <p>
+            View all registered faculty members.
+        </p>
+
+    </div>
+
+    <a href="{{ url_for('add_user') }}"
+       class="primary-btn">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add Teacher
+
+    </a>
+
+</div>
+
+
+<div class="table-card">
+
+    <div class="table-top">
+
+        <div>
+
+            <h3>
+                Registered Teachers
+            </h3>
+
+            <p>
+                {{ teachers|length }} teacher(s) found
+            </p>
+
+        </div>
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="teacherSearch"
+                placeholder="Search teachers..."
+                onkeyup="filterTable('teacherSearch', 'teacherTable')">
+
+        </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table id="teacherTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Teacher
+                    </th>
+
+                    <th>
+                        ERP ID
+                    </th>
+
+                    <th>
+                        Roll No.
+                    </th>
+
+                    <th>
+                        Course
+                    </th>
+
+                    <th>
+                        Subject
+                    </th>
+
+                    <th>
+                        Face
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for teacher in teachers %}
+
+                    <tr>
+
+                        <td>
+
+                            <div class="person-cell">
+
+                                <div class="table-avatar teacher-avatar">
+
+                                    {% if teacher.image_path %}
+
+                                        <img src="/{{ teacher.image_path }}"
+                                             alt="Teacher">
+
+                                    {% else %}
+
+                                        <i class="fa-solid fa-chalkboard-user"></i>
+
+                                    {% endif %}
+
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ teacher.name }}
+                                    </strong>
+
+                                    <small>
+                                        Faculty
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ teacher.erp_id }}
+                        </td>
+
+
+                        <td>
+                            <strong>
+                                {{ teacher.roll }}
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            {{ teacher.course }}
+                        </td>
+
+
+                        <td>
+                            {{ teacher.subject }}
+                        </td>
+
+
+                        <td>
+
+                            {% if teacher.image_path %}
+
+                                <span class="face-available">
+
+                                    <i class="fa-solid fa-face-smile"></i>
+
+                                    Ready
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="face-missing">
+
+                                    <i class="fa-solid fa-face-meh"></i>
+
+                                    Missing
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="status-badge present">
+
+                                <span></span>
+
+                                Active
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="7"
+                            class="empty-state">
+
+                            <i class="fa-solid fa-chalkboard-user"></i>
+
+                            <p>
+                                No teachers registered yet.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

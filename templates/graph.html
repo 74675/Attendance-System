@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance Graph</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Attendance Graph</h2>
+  <canvas id="attendanceChart"></canvas>
+  <script>
+    const ctx = document.getElementById('attendanceChart');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+        datasets: [{
+          label: 'Attendance %',
+          data: [70, 80, 65, 90, 75, 85, 60, 95, 88, 77, 66, 92],
+          backgroundColor: 'rgba(75, 192, 192, 0.6)'
+        }]
+      }
+    });
+  </script>
+</body>
+</html>

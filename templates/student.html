@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}
+Students | SRMU Attendance
+{% endblock %}
+
+{% block page_heading %}
+Students
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-intro">
+
+    <div>
+
+        <span class="section-label">
+            DIRECTORY
+        </span>
+
+        <h2>
+            Student Management
+        </h2>
+
+        <p>
+            View all registered students.
+        </p>
+
+    </div>
+
+    <a href="{{ url_for('add_user') }}"
+       class="primary-btn">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add Student
+
+    </a>
+
+</div>
+
+
+<div class="table-card">
+
+    <div class="table-top">
+
+        <div>
+
+            <h3>
+                Registered Students
+            </h3>
+
+            <p>
+                {{ students|length }} student(s) found
+            </p>
+
+        </div>
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="studentSearch"
+                placeholder="Search students..."
+                onkeyup="filterTable('studentSearch', 'studentTable')">
+
+        </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table id="studentTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Student
+                    </th>
+
+                    <th>
+                        ERP ID
+                    </th>
+
+                    <th>
+                        Roll No.
+                    </th>
+
+                    <th>
+                        Course
+                    </th>
+
+                    <th>
+                        Subject
+                    </th>
+
+                    <th>
+                        Face
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for student in students %}
+
+                    <tr>
+
+                        <td>
+
+                            <div class="person-cell">
+
+                                <div class="table-avatar">
+
+                                    {% if student.image_path %}
+                                        <img src="/{{ student.image_path }}"
+                                             alt="Student">
+                                    {% else %}
+                                        <i class="fa-solid fa-user"></i>
+                                    {% endif %}
+
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ student.name }}
+                                    </strong>
+
+                                    <small>
+                                        Student
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ student.erp_id }}
+                        </td>
+
+
+                        <td>
+                            <strong>
+                                {{ student.roll }}
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            {{ student.course }}
+                        </td>
+
+
+                        <td>
+                            {{ student.subject }}
+                        </td>
+
+
+                        <td>
+
+                            {% if student.image_path %}
+
+                                <span class="face-available">
+                                    <i class="fa-solid fa-face-smile"></i>
+                                    Ready
+                                </span>
+
+                            {% else %}
+
+                                <span class="face-missing">
+                                    <i class="fa-solid fa-face-meh"></i>
+                                    Missing
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="status-badge present">
+
+                                <span></span>
+
+                                Active
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="7"
+                            class="empty-state">
+
+                            <i class="fa-solid fa-user-graduate"></i>
+
+                            <p>
+                                No students registered yet.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

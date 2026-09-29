@@ -1,0 +1,1 @@
+<img src="{{ url_for('static', filename='srmu.png') }}" height="80">

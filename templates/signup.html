@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Sign Up - Student/Teacher</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <label>ERP ID:</label><br>
+    <input type="text" name="erp_id" required><br><br>
+
+    <label>Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Course:</label><br>
+    <input type="text" name="course" required><br><br>
+
+    <label>Subject:</label><br>
+    <input type="text" name="subject" required><br><br>
+
+    <label>Role:</label><br>
+    <select name="role" required>
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+    </select><br><br>
+
+    <label>Roll No:</label><br>
+    <input type="text" name="roll" required><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" name="password" required><br><br>
+
+    <label>Upload Image:</label><br>
+    <input type="file" name="image"><br><br>
+
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>

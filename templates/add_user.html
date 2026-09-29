@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Student/Teacher</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Add Student/Teacher</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="text" name="erp_id" placeholder="ERP ID" required><br>
+    <input type="text" name="name" placeholder="Name" required><br>
+    <input type="text" name="course" placeholder="Course" required><br>
+    <input type="text" name="subject" placeholder="Subject" required><br>
+    <select name="role" required>
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+    </select><br>
+    <input type="text" name="roll" placeholder="Roll No" required><br>
+    <input type="password" name="password" placeholder="Password" required><br>
+    <input type="file" name="image" accept="image/*"><br>
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>

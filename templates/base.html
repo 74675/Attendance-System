@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        SRMU Attendance System
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <i class="fa-solid fa-fingerprint"></i>
+            </div>
+
+            <div>
+                <h2>SRMU</h2>
+                <span>Attendance</span>
+            </div>
+
+        </div>
+
+        <div class="sidebar-menu">
+
+            <p class="menu-title">
+                MAIN MENU
+            </p>
+
+            <a href="{{ url_for('admin') }}"
+               class="menu-item {% if request.endpoint == 'admin' %}active{% endif %}">
+
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+
+            </a>
+
+            <a href="{{ url_for('show_students') }}"
+               class="menu-item {% if request.endpoint == 'show_students' %}active{% endif %}">
+
+                <i class="fa-solid fa-user-graduate"></i>
+                <span>Students</span>
+
+            </a>
+
+            <a href="{{ url_for('show_teachers') }}"
+               class="menu-item {% if request.endpoint == 'show_teachers' %}active{% endif %}">
+
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span>Teachers</span>
+
+            </a>
+
+            <p class="menu-title">
+                ATTENDANCE
+            </p>
+
+            <a href="{{ url_for('attendance') }}"
+               class="menu-item {% if request.endpoint == 'attendance' %}active{% endif %}">
+
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span>Manual Attendance</span>
+
+            </a>
+
+            <a href="{{ url_for('face_attendance') }}"
+               class="menu-item {% if request.endpoint == 'face_attendance' %}active{% endif %}">
+
+                <i class="fa-solid fa-camera"></i>
+                <span>Face Scanner</span>
+
+            </a>
+
+            <a href="{{ url_for('graph') }}"
+               class="menu-item {% if request.endpoint == 'graph' %}active{% endif %}">
+
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Analytics</span>
+
+            </a>
+
+            <p class="menu-title">
+                MANAGEMENT
+            </p>
+
+            <a href="{{ url_for('add_user') }}"
+               class="menu-item {% if request.endpoint == 'add_user' %}active{% endif %}">
+
+                <i class="fa-solid fa-user-plus"></i>
+                <span>Add User</span>
+
+            </a>
+
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <div class="admin-mini-card">
+
+                <div class="avatar">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+
+                <div>
+                    <strong>
+                        {{ session.get("user", "Admin") }}
+                    </strong>
+
+                    <small>
+                        Logged In
+                    </small>
+                </div>
+
+            </div>
+
+            <a href="{{ url_for('logout') }}"
+               class="logout-btn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="mobile-menu"
+                    onclick="toggleSidebar()">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+            <div>
+
+                <h1>
+                    {% block page_heading %}
+                    Dashboard
+                    {% endblock %}
+                </h1>
+
+                <p>
+                    SRMU Attendance Management System
+                </p>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="date-box">
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <span id="currentDate"></span>
+
+                </div>
+
+                <div class="top-avatar">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- FLASH MESSAGES -->
+
+        <div class="flash-container">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="flash-message {{ category }}">
+
+                            {% if category == "success" %}
+                                <i class="fa-solid fa-circle-check"></i>
+                            {% elif category == "danger" %}
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            {% elif category == "warning" %}
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            {% else %}
+                                <i class="fa-solid fa-circle-info"></i>
+                            {% endif %}
+
+                            <span>
+                                {{ message }}
+                            </span>
+
+                            <button onclick="this.parentElement.remove()">
+                                ×
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+        </div>
+
+
+        <!-- PAGE -->
+
+        <section class="page-content">
+
+            {% block content %}
+            {% endblock %}
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+
+</body>
+</html>
